@@ -1322,7 +1322,38 @@ David con unas tijeras
 cortó las cuerdas del arpa.`
   },
 ];
+
+
+/*
 const poemas = romanceroGitano;
 const container = document.getElementById("poemas-container");
 container.textContent = poemas[0].poema;
 container.innerHTML = poemas[0].poema;
+
+*/
+
+
+// Variable para controlar el índice actual del poema
+let indiceActual = 0;
+
+// Función para mostrar un poema
+function mostrarPoema(indice) {
+  const poema = romanceroGitano[indice];
+  document.getElementById("titulo-poema").textContent = poema.titulo;
+  document.getElementById("poemas-container").textContent = poema.poema;
+}
+
+// Función para cambiar a un poema aleatorio
+function cambiarPoema() {
+  // Generar un índice aleatorio diferente al actual
+  let nuevoIndice;
+  do {
+    nuevoIndice = Math.floor(Math.random() * romanceroGitano.length);
+  } while (nuevoIndice === indiceActual && romanceroGitano.length > 1);
+
+  indiceActual = nuevoIndice;
+  mostrarPoema(indiceActual);
+}
+
+// Mostrar el primer poema al cargar la página
+mostrarPoema(indiceActual);
