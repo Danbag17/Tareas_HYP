@@ -1322,3 +1322,7 @@ David con unas tijeras
 cortó las cuerdas del arpa.`
   },
 ];
+ const poemas=romanceroGitano;
+            const container=document.getElementById("poemas-container");
+            container.textContent=poemas[0].poema;
+            container.textContent=innerHTML;
