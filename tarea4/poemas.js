@@ -1342,6 +1342,11 @@ function mostrarPoema(indice) {
   document.getElementById("poemas-container").textContent = poema.poema;
   document.getElementById("info-poema").textContent =
     `${estadisticas.estrofas} estrofas • ${estadisticas.versos} versos`;
+  if (poema.poema.includes("aurora")) {
+    document.getElementById("poemas-container").classList.add("aurora");
+  } else {
+    document.getElementById("poemas-container").classList.remove("aurora");
+  }
 }
 
 function contarVersosEstrofas(texto) {

@@ -74,3 +74,31 @@ button:hover {
 button:active {
     transform: translateY(0);
 }
+
+.aurora {
+    background: linear-gradient(120deg,
+            #ff005d,
+            #ff9f1c,
+            #ffee32,
+            #3cff00,
+            #00e5ff,
+            #7a00ff,
+            #ff00c8);
+    background-size: 600% 600%;
+    animation: aurora 10s linear infinite;
+    color: black;
+}
+
+@keyframes aurora {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
