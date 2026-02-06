@@ -1337,12 +1337,24 @@ let indiceActual = 0;
 
 function mostrarPoema(indice) {
   const poema = romanceroGitano[indice];
+  const estadisticas = contarVersosEstrofas(poema.poema);
   document.getElementById("titulo-poema").textContent = poema.titulo;
   document.getElementById("poemas-container").textContent = poema.poema;
+  document.getElementById("info-poema").textContent =
+    `${estadisticas.estrofas} estrofas • ${estadisticas.versos} versos`;
 }
 
+function contarVersosEstrofas(texto) {
+  const versos = texto.split('\n').filter(linea => linea.trim() !== '').length;
+  const estrofas = texto.split(/\n\s*\n/).filter(bloque => bloque.trim() !== '').length;
+
+  return {
+    estrofas: estrofas, versos: versos
+  };
+}
 
 const button = document.getElementById("boton-cambiar");
+
 button.addEventListener("click", () => {
 
   let nuevoIndice;
@@ -1352,9 +1364,11 @@ button.addEventListener("click", () => {
   } while (nuevoIndice === indiceActual && romanceroGitano.length > 1);
 
   indiceActual = nuevoIndice;
+
   mostrarPoema(indiceActual);
 
 });
+
 
 
 mostrarPoema(indiceActual);
