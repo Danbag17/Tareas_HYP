@@ -13,11 +13,22 @@
     <h2 id="lista_tarea"></h2>
 
     <input type="text" id="texto" placeholder="Escribe algo">
-    <input type="text" id="responsable" placeholder="Escribe el responsable">
 
+    <label for="responsable">Responsable:</label>
+    <select name="responsable" id="responsable">
+    <option value="">-- Selecciona un responsable --</option>
+    <option value="Software">Software</option>
+    <option value="Hardware">Hardware</option>
+    <option value="Partners">Partners</option>
+    <option value="Otros">Otros</option>
+    </select>
     <button id="boton">Mostrar</button>
+
+ 
     <ul id="lista"></ul>
     <div id="resultado"></div>
+
+<button id="boton">Mostrar</button>
 
 
 

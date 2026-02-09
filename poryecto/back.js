@@ -49,9 +49,7 @@ const resultado = document.getElementById("resultado");
   const lista = document.getElementById("lista");
     
   boton.addEventListener("click", () => {
-    const li = document.createElement("li");
-    li.textContent = input.value;
-    lista.appendChild(li);
+    
     agregarTarea();
     });
 
@@ -63,7 +61,9 @@ function agregarTarea(){
     try {
         const tareaNueva = new tarea(nombre, texto, responsable);
         tareas.push(tareaNueva);
-        document.getElementById("lista_tarea").innerText="Tareas: " + tareas.map(t => t.getTexto).join(", ");
+        const li = document.createElement("li");
+        li.textContent = tareaNueva.getTexto;
+        lista.appendChild(li);
     }   
     catch (error) {
         alert(error.message);
