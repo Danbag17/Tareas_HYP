@@ -76,12 +76,13 @@ function agregarTarea(){
         tareas.push(tareaNueva);
 
         const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.textContent = tareaNueva.getTexto;
-        const td2 = document.createElement("td");
-        td2.textContent = tareaNueva.getResponsable;
-        const td3 = document.createElement("td");
-        td3.textContent = tareaNueva.nombre;
+        const tdNombre = document.createElement("td");
+        tdNombre.textContent = tareaNueva.nombre;
+        const tdTexto = document.createElement("td");
+        tdTexto.textContent = tareaNueva.getTexto;
+        const tdResponsable = document.createElement("td");
+        tdResponsable.textContent = tareaNueva.getResponsable;
+
 
         const tdBorrar = document.createElement("td");
         const btnEliminar = document.createElement("button");
@@ -92,16 +93,33 @@ function agregarTarea(){
             eliminarTarea(tr, tareaNueva);
         });
         
-        tdAcciones.appendChild(btnEliminar);
+        tdBorrar.appendChild(btnEliminar);
+
+
+        const tdEditar = document.createElement("td");
+        const btnEditar = document.createElement("button");
+        btnEditar.textContent = "Editar";
+        btnEditar.classList.add("btn-eliminar");
+
+        btnEditar.addEventListener("click", () => {
+            editarTarea(tr, tareaNueva);
+        });
+        
+        tdEditar.appendChild(btnEditar);
+
+
+
 
         //nombre
-        tr.appendChild(td3);
+        tr.appendChild(tdNombre);
         //texto
-        tr.appendChild(td);
+        tr.appendChild(tdTexto);
         //responsable
-        tr.appendChild(td2);
+        tr.appendChild(tdResponsable);
         //acciones
         tr.appendChild(tdBorrar);
+        tr.appendChild(tdEditar);
+        
         lista.appendChild(tr);
 
 
@@ -116,7 +134,6 @@ function agregarTarea(){
 function eliminarTarea(tr, tareaNueva) {
     tr.remove();
     
-    // Eliminar del array
     const indice = tareas.indexOf(tareaNueva);
     if (indice > -1) {
         tareas.splice(indice, 1);
