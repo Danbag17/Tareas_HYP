@@ -52,20 +52,6 @@ const lista = document.getElementById("lista");
     });
 
 
-function agregarTarea_lista(){
-    const texto = input_texto.value;
-    const responsable = input_responsable.value;
-    const nombre = "Tarea " + (tareas.length + 1);
-    try {
-        
-        const li = document.createElement("li");
-        li.textContent = tareaNueva.getTexto;
-        lista.appendChild(li);
-    }   
-    catch (error) {
-        alert(error.message);
-    }   
-}
 
 function agregarTarea(){
     const texto = input_texto.value;
@@ -96,16 +82,15 @@ function agregarTarea(){
         tdBorrar.appendChild(btnEliminar);
 
 
-        const tdEditar = document.createElement("td");
         const btnEditar = document.createElement("button");
         btnEditar.textContent = "Editar";
-        btnEditar.classList.add("btn-eliminar");
+        btnEditar.classList.add("btn-editar");
 
         btnEditar.addEventListener("click", () => {
             editarTarea(tr, tareaNueva);
         });
         
-        tdEditar.appendChild(btnEditar);
+        tdBorrar.appendChild(btnEditar);
 
 
 
@@ -118,7 +103,6 @@ function agregarTarea(){
         tr.appendChild(tdResponsable);
         //acciones
         tr.appendChild(tdBorrar);
-        tr.appendChild(tdEditar);
         
         lista.appendChild(tr);
 
@@ -137,5 +121,27 @@ function eliminarTarea(tr, tareaNueva) {
     const indice = tareas.indexOf(tareaNueva);
     if (indice > -1) {
         tareas.splice(indice, 1);
+    }
+}
+
+function editarTarea(tr, tareaNueva) {
+    const nuevoTexto = prompt("Ingrese el nuevo texto:", tareaNueva.getTexto);
+    const nuevoResponsable = prompt("Ingrese el nuevo responsable:", tareaNueva.getResponsable);
+    if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
+
+        try {
+            tareaNueva.setTexto = nuevoTexto;
+            tr.children[1].textContent = tareaNueva.getTexto;
+        } catch (error) {
+            alert(error.message);
+        }   
+    }
+    if (nuevoResponsable !== null && nuevoResponsable.trim() !== "") {
+        try {
+            tareaNueva.setResponsable = nuevoResponsable;
+            tr.children[2].textContent = tareaNueva.getResponsable;
+        } catch (error) {
+            alert(error.message);
+        }   
     }
 }

@@ -122,6 +122,16 @@ table tr:last-child td {
     border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
+    margin-bottom: 10px;
+}
+.btn-editar {
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
 }
 
 .btn-eliminar:hover {
