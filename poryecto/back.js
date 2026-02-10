@@ -69,3 +69,20 @@ function agregarTarea(){
         alert(error.message);
     }   
 }
+
+function agregarTarea(){
+    const texto = document.getElementById("texto").value;
+    const responsable = document.getElementById("responsable").value;
+    const nombre = "Tarea " + (tareas.length + 1);
+    try {
+        const tareaNueva = new tarea(nombre, texto, responsable);
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.textContent = tareaNueva.getTexto;
+        tr.appendChild(td);
+        lista.appendChild(tr);
+    }   
+    catch (error) {
+        alert(error.message);
+    }   
+}
