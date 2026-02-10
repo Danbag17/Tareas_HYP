@@ -74,6 +74,7 @@ function agregarTarea(){
     try {
         const tareaNueva = new tarea(nombre, texto, responsable);
         tareas.push(tareaNueva);
+
         const tr = document.createElement("tr");
         const td = document.createElement("td");
         td.textContent = tareaNueva.getTexto;
@@ -82,7 +83,7 @@ function agregarTarea(){
         const td3 = document.createElement("td");
         td3.textContent = tareaNueva.nombre;
 
-        const tdAcciones = document.createElement("td");
+        const tdBorrar = document.createElement("td");
         const btnEliminar = document.createElement("button");
         btnEliminar.textContent = "Eliminar";
         btnEliminar.classList.add("btn-eliminar");
@@ -99,6 +100,8 @@ function agregarTarea(){
         tr.appendChild(td);
         //responsable
         tr.appendChild(td2);
+        //acciones
+        tr.appendChild(tdBorrar);
         lista.appendChild(tr);
 
 
