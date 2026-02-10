@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="POEMAS" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAREAS</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
@@ -12,6 +12,7 @@
     <h1>Tareas</h1>
     <h2 id="lista_tarea"></h2>
 
+    <div>
     <input type="text" id="texto" placeholder="Escribe algo">
 
     <label for="responsable">Responsable:</label>
@@ -24,28 +25,29 @@
     </select>
     <button id="boton">Mostrar</button>
 
- 
-    <ul id="lista"></ul>
+    </div>
+    
     <div id="resultado"></div>
 
  
 
-
+    <div>
     <!--tabla-->
         <table>
              <thead>
                 <tr> 
+                    <th>Posición</th>
                     <th>Tarea</th>
                     <th>Responsable</th>
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
-                </tr>
+            <tbody id="lista">
+               
             </tbody>
         </table>
 
+    </div>
     <script src="back.js"></script>
 </body>
 
