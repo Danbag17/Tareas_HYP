@@ -81,6 +81,18 @@ function agregarTarea(){
         td2.textContent = tareaNueva.getResponsable;
         const td3 = document.createElement("td");
         td3.textContent = tareaNueva.nombre;
+
+        const tdAcciones = document.createElement("td");
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.classList.add("btn-eliminar");
+
+        btnEliminar.addEventListener("click", () => {
+            eliminarTarea(tr, tareaNueva);
+        });
+        
+        tdAcciones.appendChild(btnEliminar);
+
         //nombre
         tr.appendChild(td3);
         //texto
@@ -88,8 +100,22 @@ function agregarTarea(){
         //responsable
         tr.appendChild(td2);
         lista.appendChild(tr);
+
+
+         
     }   
     catch (error) {
         alert(error.message);
     }   
+}
+
+
+function eliminarTarea(tr, tareaNueva) {
+    tr.remove();
+    
+    // Eliminar del array
+    const indice = tareas.indexOf(tareaNueva);
+    if (indice > -1) {
+        tareas.splice(indice, 1);
+    }
 }

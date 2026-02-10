@@ -114,3 +114,23 @@ table tr:hover {
 table tr:last-child td {
     border-bottom: none;
 }
+.btn-eliminar {
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+}
+
+/* Ajustar ancho de columna Acciones */
+table th:last-child,
+table td:last-child {
+    width: 120px;
+    text-align: center;
+}
