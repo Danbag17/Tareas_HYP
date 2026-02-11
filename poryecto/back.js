@@ -115,6 +115,9 @@ function agregarTarea(){
     catch (error) {
         alert(error.message);
     }   
+
+    input_texto.value = "";
+    input_responsable.value = "";
 }
 
 
