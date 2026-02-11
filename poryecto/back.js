@@ -70,7 +70,7 @@ function agregarTarea(){
         tdResponsable.textContent = tareaNueva.getResponsable;
 
 
-        const tdBorrar = document.createElement("td");
+        const tdAcciones = document.createElement("td");
         const btnEliminar = document.createElement("button");
         btnEliminar.textContent = "Eliminar";
         btnEliminar.classList.add("btn-eliminar");
@@ -79,18 +79,21 @@ function agregarTarea(){
             eliminarTarea(tr, tareaNueva);
         });
         
-        tdBorrar.appendChild(btnEliminar);
+        tdAcciones.appendChild(btnEliminar);
 
 
+        // Botón Editar
         const btnEditar = document.createElement("button");
         btnEditar.textContent = "Editar";
         btnEditar.classList.add("btn-editar");
-
+        
+        // Fíjate que ahora pasamos 3 cosas: la fila, el objeto tarea y EL BOTÓN
         btnEditar.addEventListener("click", () => {
-            editarTarea(tr, tareaNueva);
+            editarTarea(tr, tareaNueva, btnEditar); 
         });
         
-        tdBorrar.appendChild(btnEditar);
+        
+        tdAcciones.appendChild(btnEditar);
 
 
 
@@ -102,7 +105,7 @@ function agregarTarea(){
         //responsable
         tr.appendChild(tdResponsable);
         //acciones
-        tr.appendChild(tdBorrar);
+        tr.appendChild(tdAcciones);
         
         lista.appendChild(tr);
 
@@ -124,7 +127,7 @@ function eliminarTarea(tr, tareaNueva) {
     }
 }
 
-function editarTarea(tr, tareaNueva) {
+function editarTarea2(tr, tareaNueva) {
     const nuevoTexto = prompt("Ingrese el nuevo texto:", tareaNueva.getTexto);
     const nuevoResponsable = prompt("Ingrese el nuevo responsable:", tareaNueva.getResponsable);
     if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
@@ -144,4 +147,58 @@ function editarTarea(tr, tareaNueva) {
             alert(error.message);
         }   
     }
+}
+function editarTarea(tr, tareaObjeto, btnEditar) {
+    // cuando guardas los cambios
+    if (btnEditar.textContent === "Guardar") {
+        const nuevoTexto = tr.children[1].querySelector("input").value;
+        const nuevoResponsable = tr.children[2].querySelector("select").value;
+
+        try {
+            
+            tareaObjeto.setTexto = nuevoTexto;
+            tareaObjeto.setResponsable = nuevoResponsable;
+           
+            tr.children[1].textContent = nuevoTexto;
+            tr.children[2].textContent = nuevoResponsable;
+            
+            btnEditar.textContent = "Editar";
+        } catch (error) {
+            alert(error.message);
+        }
+        return; 
+    }
+
+    // cuando editas
+
+    // <input>
+    const textoActual = tareaObjeto.texto;
+    tr.children[1].innerHTML = ""; 
+    const inputTexto = document.createElement("input");
+    inputTexto.type = "text";
+    inputTexto.value = textoActual;
+    inputTexto.style.width = "100%"; 
+    tr.children[1].appendChild(inputTexto);
+
+    //  <select>
+    const responsableActual = tareaObjeto.responsable;
+    tr.children[2].innerHTML = ""; 
+    const selectResponsable = document.createElement("select");
+    selectResponsable.style.width = "100%";
+
+    const opciones = ["Software", "Hardware", "Partners", "Otros"];
+    
+    opciones.forEach(opcion => {
+        const opt = document.createElement("option");
+        opt.value = opcion;
+        opt.textContent = opcion;
+        if (opcion === responsableActual) {
+            opt.selected = true;
+        }
+        selectResponsable.appendChild(opt);
+    });
+    
+    tr.children[2].appendChild(selectResponsable);
+
+    btnEditar.textContent = "Guardar";
 }
