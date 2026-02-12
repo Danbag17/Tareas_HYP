@@ -1,5 +1,7 @@
 class tarea{
-    
+    #nombre;
+    #texto;
+    #responsable;
     constructor(nombre,texto, responsable){
         if (typeof nombre !== 'string' || nombre.length === 0) {
             throw new Error("El nombre esta mal");
@@ -10,48 +12,52 @@ class tarea{
         if (typeof responsable !== 'string' || responsable.length === 0) {
             throw new Error("El responsable esta mal");
         }
-        this.nombre=nombre;
-        this.texto=texto;
-        this.responsable=responsable;       
+        this.#nombre=nombre;
+        this.#texto=texto;
+        this.#responsable=responsable;       
     }
 
-    get getTexto(){
-        return this.texto;
+    get Texto(){
+        return this.#texto;
     }    
 
-    get getResponsable(){
-        return this.responsable;
+    get Responsable(){
+        return this.#responsable;
     }   
-    set setTexto(texto){
+    set Texto(texto){
         if (typeof texto !== 'string' || texto.length === 0) {
             throw new Error("El texto esta mal");
         }   
 
-        this.texto=texto;
+        this.#texto=texto;
     }   
-    set setResponsable(responsable){
+    set Responsable(responsable){
         if (typeof responsable !== 'string' || responsable.length === 0) {
             throw new Error("El responsable esta mal");
         }
-        this.responsable=responsable;
+        this.#responsable=responsable;
     }
 }
 
 const tareas=[];
-//document.getElementById("lista_tarea").innerText="Tareas: " + tareas[0].getTexto ;
 
 const input_texto = document.getElementById("texto");
 const input_responsable = document.getElementById("responsable");
-const boton = document.getElementById("boton");
+const botonAgregar = document.getElementById("boton");
 const resultado = document.getElementById("resultado");
 const lista = document.getElementById("lista");
+const btnFiltro = document.getElementById("btnFiltrar");
+const inputFiltro = document.getElementById("filtroResponsable");
+
     
-  boton.addEventListener("click", () => {
+  botonAgregar.addEventListener("click", () => {
     
     agregarTarea();
     });
 
-
+    btnFiltro.addEventListener("click", () => {
+        filtrarTareas();
+    });
 
 function agregarTarea(){
     const texto = input_texto.value;
@@ -61,56 +67,8 @@ function agregarTarea(){
         const tareaNueva = new tarea(nombre, texto, responsable);
         tareas.push(tareaNueva);
 
-        const tr = document.createElement("tr");
-        const tdNombre = document.createElement("td");
-        tdNombre.textContent = tareaNueva.nombre;
-        const tdTexto = document.createElement("td");
-        tdTexto.textContent = tareaNueva.getTexto;
-        const tdResponsable = document.createElement("td");
-        tdResponsable.textContent = tareaNueva.getResponsable;
+        mostrarTarea(tareaNueva);
 
-
-        const tdAcciones = document.createElement("td");
-        const btnEliminar = document.createElement("button");
-        btnEliminar.textContent = "Eliminar";
-        btnEliminar.classList.add("btn-eliminar");
-
-        btnEliminar.addEventListener("click", () => {
-            eliminarTarea(tr, tareaNueva);
-        });
-        
-        tdAcciones.appendChild(btnEliminar);
-
-
-        // Botón Editar
-        const btnEditar = document.createElement("button");
-        btnEditar.textContent = "Editar";
-        btnEditar.classList.add("btn-editar");
-        
-        // Fíjate que ahora pasamos 3 cosas: la fila, el objeto tarea y EL BOTÓN
-        btnEditar.addEventListener("click", () => {
-            editarTarea(tr, tareaNueva, btnEditar); 
-        });
-        
-        
-        tdAcciones.appendChild(btnEditar);
-
-
-
-
-        //nombre
-        tr.appendChild(tdNombre);
-        //texto
-        tr.appendChild(tdTexto);
-        //responsable
-        tr.appendChild(tdResponsable);
-        //acciones
-        tr.appendChild(tdAcciones);
-        
-        lista.appendChild(tr);
-
-        //confirmacion
-         
     }   
     catch (error) {
         alert(error.message);
@@ -130,27 +88,7 @@ function eliminarTarea(tr, tareaNueva) {
     }
 }
 
-function editarTarea2(tr, tareaNueva) {
-    const nuevoTexto = prompt("Ingrese el nuevo texto:", tareaNueva.getTexto);
-    const nuevoResponsable = prompt("Ingrese el nuevo responsable:", tareaNueva.getResponsable);
-    if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
 
-        try {
-            tareaNueva.setTexto = nuevoTexto;
-            tr.children[1].textContent = tareaNueva.getTexto;
-        } catch (error) {
-            alert(error.message);
-        }   
-    }
-    if (nuevoResponsable !== null && nuevoResponsable.trim() !== "") {
-        try {
-            tareaNueva.setResponsable = nuevoResponsable;
-            tr.children[2].textContent = tareaNueva.getResponsable;
-        } catch (error) {
-            alert(error.message);
-        }   
-    }
-}
 function editarTarea(tr, tareaObjeto, btnEditar) {
     // cuando guardas los cambios
     if (btnEditar.textContent === "Guardar") {
@@ -159,8 +97,8 @@ function editarTarea(tr, tareaObjeto, btnEditar) {
 
         try {
             
-            tareaObjeto.setTexto = nuevoTexto;
-            tareaObjeto.setResponsable = nuevoResponsable;
+            tareaObjeto.Texto = nuevoTexto;
+            tareaObjeto.Responsable = nuevoResponsable;
            
             tr.children[1].textContent = nuevoTexto;
             tr.children[2].textContent = nuevoResponsable;
@@ -184,7 +122,7 @@ function editarTarea(tr, tareaObjeto, btnEditar) {
     tr.children[1].appendChild(inputTexto);
 
     //  <select>
-    const responsableActual = tareaObjeto.responsable;
+    const responsableActual = tareaObjeto.Responsable;
     tr.children[2].innerHTML = ""; 
     const selectResponsable = document.createElement("select");
     selectResponsable.style.width = "100%";
@@ -205,3 +143,69 @@ function editarTarea(tr, tareaObjeto, btnEditar) {
 
     btnEditar.textContent = "Guardar";
 }
+
+
+
+function filtrarTareas() {
+    let tablaFiltrada=[];
+    const CopiaTabla = tareas;
+    const representanteFiltro = inputFiltro.value; 
+
+    tablaFiltrada=CopiaTabla.filter(tarea => tarea.Responsable.includes(representanteFiltro));
+
+    lista.innerHTML = "";
+    tablaFiltrada.forEach(tarea => {
+        mostrarTarea(tarea);
+    });
+}
+
+function mostrarTarea(tareaNueva) {
+    
+        const tr = document.createElement("tr");
+        const tdNombre = document.createElement("td");
+        tdNombre.textContent = tareaNueva.nombre;
+        const tdTexto = document.createElement("td");
+        tdTexto.textContent = tareaNueva.Texto;
+        const tdResponsable = document.createElement("td");
+        tdResponsable.textContent = tareaNueva.Responsable;
+
+
+        const tdAcciones = document.createElement("td");
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.classList.add("btn-eliminar");
+
+        
+        btnEliminar.addEventListener("click", () => {
+            eliminarTarea(tr, tareaNueva);
+        });
+        
+        tdAcciones.appendChild(btnEliminar);
+
+
+        // Botón Editar
+        const btnEditar = document.createElement("button");
+        btnEditar.textContent = "Editar";
+        btnEditar.classList.add("btn-editar");
+        
+        btnEditar.addEventListener("click", () => {
+            editarTarea(tr, tareaNueva, btnEditar); 
+        });
+        
+        
+        tdAcciones.appendChild(btnEditar);
+
+
+        //nombre
+        tr.appendChild(tdNombre);
+        //texto
+        tr.appendChild(tdTexto);
+        //responsable
+        tr.appendChild(tdResponsable);
+        //acciones
+        tr.appendChild(tdAcciones);
+        
+        lista.appendChild(tr);
+
+}
+

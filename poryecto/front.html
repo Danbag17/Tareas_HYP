@@ -10,10 +10,6 @@
 
 <body>
     <h1>Tareas</h1>
-    <h2 id="lista_tarea"></h2>
-
-
-
     
 
     <div>
@@ -31,8 +27,17 @@
 
     </div>
 
-
-
+    <div>
+        <label for="filtroResponsable">Filtrar por Responsable:</label>
+        <select name="responsable" id="filtroResponsable">
+            <option value="">-- Selecciona un responsable --</option>
+            <option value="Software">Software</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Partners">Partners</option>
+            <option value="Otros">Otros</option>
+        </select>
+        <button id="btnFiltrar">Filtrar</button>
+    </div>
 
     <div>
         <!--tabla-->
