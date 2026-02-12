@@ -109,7 +109,7 @@ function agregarTarea(){
         
         lista.appendChild(tr);
 
-
+        //confirmacion
          
     }   
     catch (error) {
