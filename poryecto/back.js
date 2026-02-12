@@ -1,5 +1,4 @@
 class tarea{
-    #nombre;
     #texto;
     #responsable;
     constructor(nombre,texto, responsable){
@@ -12,7 +11,7 @@ class tarea{
         if (typeof responsable !== 'string' || responsable.length === 0) {
             throw new Error("El responsable esta mal");
         }
-        this.#nombre=nombre;
+        this.nombre=nombre;
         this.#texto=texto;
         this.#responsable=responsable;       
     }
