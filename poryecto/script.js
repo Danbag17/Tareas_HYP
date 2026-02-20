@@ -112,7 +112,7 @@ function editarTarea(tr, tareaObjeto, btnEditar) {
     // cuando editas
 
     // <input>
-    const textoActual = tareaObjeto.texto;
+    const textoActual = tareaObjeto.Texto;
     tr.children[1].innerHTML = ""; 
     const inputTexto = document.createElement("input");
     inputTexto.type = "text";
